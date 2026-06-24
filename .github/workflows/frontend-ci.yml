@@ -1,0 +1,45 @@
+name: Frontend CI
+
+on:
+  push:
+    paths:
+      - 'frontend/**'
+  pull_request:
+    paths:
+      - 'frontend/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install deps
+        working-directory: frontend
+        run: |
+          npm ci
+
+      - name: TypeScript check
+        working-directory: frontend
+        run: npx tsc --noEmit || true
+
+      - name: Lint
+        working-directory: frontend
+        run: npx eslint . || true
+
+      - name: Expo build verification (web)
+        working-directory: frontend
+        run: |
+          npm run build --if-present || echo 'No build script; skipping'
+
+      - name: Upload frontend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend/dist

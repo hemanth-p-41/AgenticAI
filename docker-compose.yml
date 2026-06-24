@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - '8000:8000'
+    environment:
+      - DATABASE_URL=sqlite:///./data/dev.db
+      - SECRET_KEY=${SECRET_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - ./backend/app:/app/app:ro
+      - backend_db:/app/data
+
+volumes:
+  backend_db:
+    driver: local
