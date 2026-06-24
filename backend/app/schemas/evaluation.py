@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 
 
 class EvaluationRequest(BaseModel):
@@ -25,4 +25,4 @@ class InterviewSummaryResponse(BaseModel):
     average_score: float
     strongest_area: Optional[str]
     weakest_area: Optional[str]
-    question_breakdown: List[dict]
+    question_breakdown: List[Dict[str, Any]]

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Dict, Optional, List
+from typing import Dict, Optional, List, Any
 
 
 class UserAnalyticsResponse(BaseModel):
@@ -15,5 +15,5 @@ class TrendsResponse(BaseModel):
 
 
 class WeaknessDetectionResponse(BaseModel):
-    frequently_weak_categories: List
+    frequently_weak_categories: List[str]
     repeated_weaknesses: List[str]

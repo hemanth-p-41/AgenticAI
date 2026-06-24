@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Dict
+from typing import List, Dict, Any
 
 
 class StudyTask(BaseModel):
@@ -8,6 +8,6 @@ class StudyTask(BaseModel):
 
 
 class StudyPlanResponse(BaseModel):
-    three_day_plan: List[Dict]
-    seven_day_plan: List[Dict]
-    thirty_day_plan: List[Dict]
+    three_day_plan: List[Dict[str, Any]]
+    seven_day_plan: List[Dict[str, Any]]
+    thirty_day_plan: List[Dict[str, Any]]
