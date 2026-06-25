@@ -26,7 +26,7 @@ def upload_resume(file: UploadFile = File(...), db: Session = Depends(get_db), c
 
     resume = ResumeService.create_resume(db, current_user.id, file)
 
-    return ResumeCreateResponse.from_orm(resume)
+    return ResumeCreateResponse.model_validate(resume)
 
 
 @router.get('/{resume_id}', response_model=ResumeResponse)

@@ -20,7 +20,7 @@ def register(payload: RegisterRequest, db: Session = Depends(get_db)) -> UserRes
         raise HTTPException(status_code=400, detail='Email already registered')
 
     user = create_user(db, payload.name, payload.email, payload.password)
-    return UserResponse.from_orm(user)
+    return UserResponse.model_validate(user)
 
 
 @router.post('/login', response_model=TokenResponse)
@@ -50,4 +50,4 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 
 @router.get('/me', response_model=UserResponse)
 def me(current_user: User = Depends(get_current_user)) -> UserResponse:
-    return UserResponse.from_orm(current_user)
+    return UserResponse.model_validate(current_user)
